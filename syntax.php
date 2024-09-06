@@ -3,15 +3,7 @@
 /**
  * DokuWiki Plugin Numbered Headings: add tiered numbers for hierarchical headings
  *
- * Usage:   ===== - Heading Level 2 =====
- *          ==== - Heading Level 3 ====
- *          ==== - Heading Level 3 ====
- *          ...
- *
- * =>       1. Heading Level 2
- *              1.1 Heading Level 3
- *              1.2 Heading Level 3
- *          ...
+ * Add numbering to all headings.
  *
  * Config settings
  *     tier1  : heading level corresponding to the 1st tier
@@ -20,6 +12,7 @@
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author     Lars J. Metz <dokuwiki@meistermetz.de>
  * @author     Satoshi Sahara <sahara.satoshi@gmail.com>
+ * @author     Jihyeon Yoon <somehowme@gmail.com>
  */
 class syntax_plugin_numberedheadings extends DokuWiki_Syntax_Plugin
 {
@@ -47,7 +40,8 @@ class syntax_plugin_numberedheadings extends DokuWiki_Syntax_Plugin
 
         // syntax pattern
         $this->pattern[0] = '~~HEADLINE NUMBERING FIRST LEVEL = \d~~';
-        $this->pattern[5] = '^[ \t]*={2,} ?-+(?:[#"][^\n]*)? [^\n]*={2,}[ \t]*(?=\n)';
+        // $this->pattern[5] = '^[ \t]*={2,} ?-+(?:[#"][^\n]*)? [^\n]*={2,}[ \t]*(?=\n)';
+        $this->pattern[5] = '^[ \t]*={2,} ?(?:[#"][^\n]*)? [^\n]*={2,}[ \t]*(?=\n)';
     }
 
     public function connectTo($mode)
@@ -89,9 +83,10 @@ class syntax_plugin_numberedheadings extends DokuWiki_Syntax_Plugin
 
         $text = trim(trim($match), '='); // drop heading markup
         $text = ltrim($text);
-        $dash = strspn($text, '-');      // count dash marker to check '-' or '--'
-        $text = substr($text, $dash);
-
+        $dash = 1; // strspn($text, '-');      // count dash marker to check '-' or '--'
+        // $text = substr($text, $dash);
+        $text = ' ' . $text;
+        $title = $text;
         switch ($text[0]) {
             case ' ':
                 list($number, $title) = array('', trim($text));

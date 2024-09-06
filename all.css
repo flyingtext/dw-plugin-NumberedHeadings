@@ -6,5 +6,5 @@
 .dokuwiki .page h3 .plugin_numberedheadings,
 .dokuwiki .page h4 .plugin_numberedheadings,
 .dokuwiki .page h5 .plugin_numberedheadings {
-    font-style: oblique;
+    font-style: normal;
 }

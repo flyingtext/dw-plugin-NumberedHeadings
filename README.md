@@ -1,7 +1,9 @@
 # DokuWiki Plugin Numbered Headings
 
 Prepend tiered numbers for hierarchical headings to DokuWiki without changing 
-the actual behavior of the standard headings.
+the actual behavior of the standard headings. 
+
+**This is a modified version that add numbering to all headers.**
 
 ## Configuration
 
